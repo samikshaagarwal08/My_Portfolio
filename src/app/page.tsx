@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
 import { Header } from "@/components/Header";
 import { HeroSection } from "@/components/ui/HeroSection";
+import { AboutSection } from "@/components/ui/AboutSection";
 
 import {
   Award,
@@ -24,6 +25,7 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState("hero");
   const [isScrolled, setIsScrolled] = useState(false);
 
+  // List of section ids in order of appearance
   const sections: Section[] = [
     { id: "hero", title: "Home", icon: <User className="w-4 h-4" /> },
     { id: "about", title: "About", icon: <Sparkles className="w-4 h-4" /> },
@@ -41,29 +43,35 @@ export default function Home() {
     { id: "skills", title: "Skills", icon: <Award className="w-4 h-4" /> },
   ];
 
+  // Fix: Only run scroll handler on client, and use section ids from the DOM
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
-      const current = sections.find(({ id }) => {
-        const element = document.getElementById(id);
-        if (!element) return false;
-
-        const rect = element.getBoundingClientRect();
-        return rect.top <= 100 && rect.bottom >= 100;
-      });
-
-      if (current) setActiveSection(current.id);
+      // Find the section closest to the top (but not past it)
+      let foundSection = "hero";
+      for (const { id } of sections) {
+        const el = document.getElementById(id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 120) {
+            foundSection = id;
+          }
+        }
+      }
+      setActiveSection(foundSection);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // set initial state
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [sections]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
@@ -76,9 +84,13 @@ export default function Home() {
         onSectionClick={scrollToSection}
       />
 
-      <div id="hero">
+      <section id="hero">
         <HeroSection onScrollToProjects={() => scrollToSection("projects")} />
-      </div>
+      </section>
+      <section id="about">
+        <AboutSection />
+      </section>
+      {/* TODO: Add Education, Experience, Projects, Skills sections here */}
     </div>
   );
 }

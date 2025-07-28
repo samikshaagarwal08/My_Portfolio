@@ -38,7 +38,7 @@ export const Header: React.FC<NavigationProps> = ({
               <button
                 key={section.id}
                 onClick={() => onSectionClick(section.id)}
-                className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-200 ${
+                className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-200 cursor-pointer ${
                   activeSection === section.id
                     ? "bg-purple-600 text-white"
                     : "text-gray-300 hover:text-white hover:bg-purple-600/20"

@@ -1,4 +1,5 @@
 import { ChevronDown, Code, Linkedin, Mail, Phone } from "lucide-react";
+import Image from "next/image";
 
 interface HeroProps {
   onScrollToProjects: () => void;
@@ -13,7 +14,7 @@ export const HeroSection: React.FC<HeroProps> = ({ onScrollToProjects }) => {
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
         <div className="text-center md:text-left">
           <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
-            Hi, I'm{" "}
+            Hi, I&apos;m{" "}
             <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
               Samiksha
             </span>
@@ -61,6 +62,25 @@ export const HeroSection: React.FC<HeroProps> = ({ onScrollToProjects }) => {
             >
               <Phone className="w-6 h-6" />
             </a>
+          </div>
+        </div>
+        <div className="flex justify-center">
+          <div className="relative">
+            <div className="size-84 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full p-1">
+              <div className="w-full h-full bg-slate-800 rounded-full flex items-center justify-center">
+                <div className="size-78 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-white text-6xl font-bold">
+                  <Image
+                    src={"/images/Samiksha.jpeg"}
+                    alt="Samiksha Agarwal"
+                    height={1000}
+                    width={500}
+                    className="rounded-full object-center"
+                  ></Image>
+                </div>
+              </div>
+            </div>
+            <div className="absolute -top-4 -right-4 w-8 h-8 bg-yellow-400 rounded-full animate-pulse"></div>
+            <div className="absolute -bottom-4 -left-4 w-6 h-6 bg-green-400 rounded-full animate-pulse delay-300"></div>
           </div>
         </div>
       </div>
