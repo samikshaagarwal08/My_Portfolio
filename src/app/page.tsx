@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
 import { HeroSection } from "@/components/ui/HeroSection";
 import { AboutSection } from "@/components/ui/AboutSection";
@@ -13,6 +13,11 @@ import {
   User,
   Sparkles,
 } from "lucide-react";
+import { EducationSection } from "@/components/ui/EducationSection";
+import { ExperienceSection } from "@/components/ui/ExperienceSection";
+import { ProjectsSection } from "@/components/ui/ProjectsSection";
+import { SkillsSection } from "@/components/ui/SkillsSection";
+import { Footer } from "@/components/Footer";
 
 // Section type
 export interface Section {
@@ -89,8 +94,12 @@ export default function Home() {
       </section>
       <section id="about">
         <AboutSection />
+        <EducationSection />
+        <ExperienceSection />
+        <ProjectsSection />
+        <SkillsSection />
+        <Footer />
       </section>
-      {/* TODO: Add Education, Experience, Projects, Skills sections here */}
     </div>
   );
 }
